@@ -9,7 +9,8 @@ export default defineConfig(({ mode }) => {
    * - For https://<user>.github.io/<repo>/ use VITE_BASE_PATH=/<repo>/
    * - For custom domain/root hosting keep '/'
    */
-  const base = env.VITE_BASE_PATH || '/';
+  // Use relative base by default so GitHub Pages project paths do not blank if env is unset.
+  const base = env.VITE_BASE_PATH || './';
 
   return {
     base,
