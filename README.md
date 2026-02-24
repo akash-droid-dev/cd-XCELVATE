@@ -55,6 +55,23 @@ Optional aggregate fields supported:
 - Google Drive links are converted to direct image URLs.
 - INR formatting uses Indian locale grouping.
 
+
+## GitHub Pages blank-screen fix
+If the site opens blank on GitHub Pages, set the correct Vite base path in `.env` before building:
+
+```bash
+VITE_BASE_PATH=/<your-repo-name>/
+```
+
+Examples:
+- Project page: `https://username.github.io/my-repo/` -> `VITE_BASE_PATH=/my-repo/`
+- User/org root page or custom domain -> `VITE_BASE_PATH=./`
+
+Then rebuild/redeploy:
+```bash
+npm run build
+```
+
 ## Display-only mode
 Open with:
 ```text
@@ -71,3 +88,10 @@ Effects:
 - Use `?mode=display` on projector machine.
 - Ensure stable internet backup.
 - Keep one operator tab open to monitor API health.
+
+
+### If still blank after deploy
+Check browser DevTools on the deployed page:
+1. **Network tab**: if JS/CSS files are 404, your `base` is wrong for the publish URL.
+2. **Console tab**: if API/CORS errors appear, UI should still render sections; hard refresh once after redeploy to clear stale service-worker/cache.
+3. Verify GitHub Pages source is the latest branch/build artifact and not an older branch snapshot.
